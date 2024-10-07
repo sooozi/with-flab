@@ -9,6 +9,7 @@ let obj = {
     },
 };
 
+
 // 방법 1. 재귀함수
 function deepClone(value, weakMap = new WeakMap()) {
 // 기본 타입 처리
