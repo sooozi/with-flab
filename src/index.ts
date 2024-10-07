@@ -12,7 +12,7 @@ let obj = {
 //제네릭 T :
 //제네릭 사용 시 함수, 클래스가 어떤 타입의 값을 다룰지 미리 정하지 않고도 여러 타입 처리 가능!
 //다양한 타입의 값을 안전하게 처리할 수 있는 유용한 도구
-function deepClone<T extends object>(value: T, weakMap = new WeakMap<object, any>()): T {
+export function deepClone<T extends object>(value: T, weakMap = new WeakMap<object, any>()): T {
     // 기본 타입 처리
     if (typeof value !== 'object' || value === null) {
         return value;
