@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    /* 기본 설정 */
+    "target": "es2016",                                    /* 생성할 JavaScript의 버전. */
+    "module": "commonjs",                                  /* 모듈 코드 생성 방식. */
+    "esModuleInterop": true,                               /* CommonJS 모듈을 가져오는 데 필요한 추가 JavaScript 코드 생성. */
+    "forceConsistentCasingInFileNames": true,             /* 파일 이름에서 대소문자가 일관되게 사용되도록 강제. */
+    "strict": true,                                        /* 모든 엄격한 유형 검사 옵션 활성화. */
+    "skipLibCheck": true                                   /* 모든 .d.ts 파일의 유형 검사를 건너뜀. */
+
+    /* 추가적인 설정 */
+    // "jsx": "react",                                     /* JSX 코드 생성을 위한 설정. */
+    // "declaration": true,                               /* TypeScript 및 JavaScript 파일에서 .d.ts 파일 생성. */
+    // "sourceMap": true,                                 /* 생성된 JavaScript 파일에 대한 소스맵 파일 생성. */
+    // "outDir": "./dist",                                /* 생성된 파일의 출력 폴더. */
+  }
+}
