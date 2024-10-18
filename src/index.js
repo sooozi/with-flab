@@ -8,22 +8,19 @@ let obj = {
         },
     },
 };
-
-
-// 방법 1. 재귀함수
-function deepClone(value, weakMap = new WeakMap()) {
+//제네릭 T :
+//제네릭 사용 시 함수, 클래스가 어떤 타입의 값을 다룰지 미리 정하지 않고도 여러 타입 처리 가능!
+//다양한 타입의 값을 안전하게 처리할 수 있는 유용한 도구
+export function deepClone(value, weakMap = new WeakMap()) {
     // 기본 타입 처리
     if (typeof value !== 'object' || value === null) {
         return value;
     }
-
     // 순환 참조 처리
     if (weakMap.has(value)) {
-        return weakMap.get(value);
+        return weakMap.get(value); // 타입 단언
     }
-
-    let clone;
-
+    let clone; // any로 선언하여 다양한 타입을 처리
     // 배열 처리
     if (Array.isArray(value)) {
         clone = [];
@@ -33,17 +30,14 @@ function deepClone(value, weakMap = new WeakMap()) {
         });
         return clone;
     }
-
     // Date 처리
     if (value instanceof Date) {
         return new Date(value);
     }
-
     // RegExp 처리
     if (value instanceof RegExp) {
         return new RegExp(value);
     }
-
     // Map 처리
     if (value instanceof Map) {
         clone = new Map();
@@ -53,7 +47,6 @@ function deepClone(value, weakMap = new WeakMap()) {
         });
         return clone;
     }
-
     // Set 처리
     if (value instanceof Set) {
         clone = new Set();
@@ -63,22 +56,23 @@ function deepClone(value, weakMap = new WeakMap()) {
         });
         return clone;
     }
-
     // 일반 객체 처리
     clone = Object.create(Object.getPrototypeOf(value));
     weakMap.set(value, clone);
-
     Reflect.ownKeys(value).forEach(key => {
-        clone[key] = deepClone(value[key], weakMap);
+        const propValue = value[key];
+        if (typeof propValue === 'object' && propValue !== null) { // propValue가 객체인지 확인
+            clone[key] = deepClone(propValue, weakMap); // deepClone 호출
+        }
+        else {
+            clone[key] = propValue; // 객체가 아닐 경우 직접 할당
+        }
     });
-
     return clone;
 }
-
-let copiedObj = deepClone(obj);
-console.log(copiedObj);
-
+let copiedObj = deepClone(obj); // deepClone 함수를 사용하여 obj를 클론
+console.log(copiedObj); // 클론된 객체 출력
 // 방법 2. Lodash
-const _ = require('lodash');
-const copiedObjLodash = _.cloneDeep(obj);
-console.log(copiedObjLodash);
+import _ from 'lodash'; // ES 모듈 방식으로 lodash를 임포트
+const copiedObjLodash = _.cloneDeep(obj); // lodash의 cloneDeep 함수를 사용하여 obj를 클론
+console.log(copiedObjLodash); // 클론된 객체 출력
